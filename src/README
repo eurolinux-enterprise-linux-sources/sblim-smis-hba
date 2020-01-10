@@ -1,0 +1,62 @@
+sblim-smis-hba
+==============
+This package contains a set of HBA providers based on SMI-S standards.
+These providers assist in storage management.
+
+
+Pre-Requirements:
+=================
+1. Install sblim-devel package
+	The provider code requires CMPI definitions. 
+	Download the latest sblim-devel package from SBLIM 
+	sourceforge location and install.
+	Location: http://sblim.wiki.sourceforge.net/Providers
+
+2. Install sblim-base package
+	The providers use routines in sblim-base package.
+	Download the latest sblim-base package from SBLIM 
+	sourceforge location and install.
+	Location: http://sblim.wiki.sourceforge.net/Providers
+
+3. Install hbaapi package
+	The providers require headers and routines defined in hbaapi package.
+	Download hbaapi_src_2.2 package and install.
+	Location: http://sourceforge.net/project/showfiles.php?group_id=35200
+	Notes: 
+	 The makefile.unix contained within the package may not work on Linux.
+	 Use the following commands.
+         # gcc HBAAPILIB.c  -fPIC -DPOSIX_THREADS=POSIX_THREADS 
+	   -DUSESYSLOG=USESYSLOG -DUSELOGFILE=USELOGFILE 
+           -DBUILD_DATE="`date`" -shared -o libHBAAPI.so
+	 # cp libHBAAPI.so /usr/lib/
+	 # cp hbaapi.h /usr/include/sys
+
+
+Installing & running sblim-hba
+==============================
+1. Download sblim-hba package from SBLIM website.
+   Location: http://sblim.wiki.sourceforge.net/Providers
+
+2. Compile the sources.
+	# autoconfiscate.sh
+	# ./configure
+	# make
+
+3. Install the libraries and the MOF files.
+	# make install
+	# make postinstall
+
+4. Use sfcb CIMOM. Ensure sfcbd is running.
+
+5. Use wbemcli to perfrom queries.
+
+Notes:
+To obtain information from vendor specific Host Bus Adapters, 
+the required drivers and libraries must be installed on the system. 
+The error below indicates missing vendor specific library on the
+system when enumerateInstance is called for Linux_FCCard.
+	wbemcli: Cim: (1) CIM_ERR_FAILED: Could not list hba ports.
+
+
+----------
+contact: Narasimha Sharoff <nsharoff@us.ibm.com>

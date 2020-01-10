@@ -1,0 +1,378 @@
+/*
+ * $Id: Linux_SMIS_HBA_HDR.mof,v 1.1.1.1 2009/05/12 21:46:32 nsharoff Exp $
+ *
+ * (C) Copyright IBM Corp. 2009
+ *
+ * THIS FILE IS PROVIDED UNDER THE TERMS OF THE ECLIPSE PUBLIC LICENSE
+ * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
+ * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+ *
+ * You can obtain a current copy of the Eclipse Public License from
+ * http://www.opensource.org/licenses/eclipse-1.0.php
+ *
+ * Author: IBM
+ *
+ * Contributors: IBM 
+ *
+ * Description:
+ *	HBA HDR MOF file
+*/
+
+#pragma locale ("en_US")
+#pragma namespace ("root/cimv2")
+
+// ===================================================================
+// 	Linux_FCPort
+// ===================================================================
+
+[ Provider("cmpi:cmpiSMIS_HBA_HDR_Provider"),
+  Description ("A class derived from CIM_FCPort. Its a logical "
+  "representation of fibre channel hardware." )
+] 
+class Linux_FCPort : CIM_FCPort
+{ };
+
+// ===================================================================
+//      Linux_FCCard
+// ===================================================================
+
+[ Provider("cmpi:cmpiSMIS_HBA_HDR_Provider"),
+  Description ("A class representing Fibre Channel cards." )
+]
+class Linux_FCCard : CIM_Card
+{ };
+
+// ===================================================================
+//      Linux_FCLogicalDisk
+// ===================================================================
+
+[ Provider("cmpi:cmpiSMIS_HBA_HDR_Provider"),
+  Description ("A class derived from CIM_FCLogicalDisk. Its a logical "
+  "representation of CIM_LogicalDisks." )
+]
+class Linux_FCLogicalDisk : CIM_LogicalDisk
+{ };
+
+// ===================================================================
+//      Linux_FCSoftwareIdentity
+// ===================================================================
+
+[ Provider("cmpi:cmpiSMIS_HBA_HDR_Provider"),
+  Description ("A class derived from CIM_SoftwareIdentity. Its a logical "
+  "representation of fibre channel software." )
+]
+class Linux_FCSoftwareIdentity : CIM_SoftwareIdentity
+{ };
+
+
+// ===================================================================
+//      Linux_FCSoftwareIdentity_Driver
+// ===================================================================
+
+[ Provider("cmpi:cmpiSMIS_HBA_HDR_Provider"),
+  Description ("A class derived from Linux_FCSoftwareIdentity. Its a logical "
+  "representation of software driver." )
+]
+class Linux_FCSoftwareIdentity_Driver : Linux_FCSoftwareIdentity
+{ };
+
+// ===================================================================
+//      Linux_FCSoftwareIdentity_Firmware
+// ===================================================================
+
+[ Provider("cmpi:cmpiSMIS_HBA_HDR_Provider"),
+  Description ("A class derived from Linux_FCSoftwareIdentity. Its a logical "
+  "representation of software Firmware." )
+]
+class Linux_FCSoftwareIdentity_Firmware : Linux_FCSoftwareIdentity
+{ };
+
+// ===================================================================
+//      Linux_ComputerSystem
+// ===================================================================
+// NSN - Following is commented out. Make sure base provider is installed first
+//[ Provider("cmpi:cmpiOSBase_ComputerSystemProvider"),
+//  Description ("A class derived from ComputerSystem"
+//  " to represent the Linux OS on a Desktop, Mobile, NetPC,"
+//  " Server or other type of a single node Computer System ." )
+//]
+//class Linux_ComputerSystem : CIM_ComputerSystem
+//{
+//    [read]
+//    String LPARID;
+//    [read,
+//     Description("This attribute should have a value that will allow to group LPARs that belong to the same managed system.")
+//    ]
+//    String HostingSystemName;
+//    [read,
+//     Description("The name format of HostingSystemName.")
+//    ]
+//    String HostingSystemNameFormat;
+//};
+
+// ===================================================================
+//      Linux_FCSystemDevice_LogicalDevice
+// ===================================================================
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ]
+class Linux_FCSystemDevice_LogicalDevice : CIM_SystemDevice
+{
+   [ Override ( "GroupComponent" ),
+     Min ( 1 ), Max ( 1 ),
+     Description (
+          "The parent system where the LogicalDisk and LogicalDrive resides.")]
+   Linux_ComputerSystem REF GroupComponent;
+
+   [ Override ( "PartComponent" ),
+     Description (
+          "The LogicalDisk or LogicalDrive that is a component of a System.")]
+   CIM_LogicalDevice REF PartComponent;
+};
+
+// ===================================================================
+//      Linux_FCPortController
+// ===================================================================
+
+[ Provider("cmpi:cmpiSMIS_HBA_HDR_Provider"),
+  Description ("A class derived from PortController. Its a logical "
+  "representation of fibre channel port controller hardware." )
+]
+class Linux_FCPortController : CIM_PortController
+{ };
+
+// ===================================================================
+// 	Linux_FCControlledBy
+// ===================================================================
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ] 
+class Linux_FCControlledBy : CIM_ControlledBy
+{ 
+   [ Override ( "Antecedent" ), 
+     Description (
+          "The FC Port Controller.")]
+   Linux_FCPortController REF Antecedent;
+
+   [ Override ( "Dependent" ), 
+     Description (
+          "The FC Port controlled By the FC Port Controller.")]
+   Linux_FCPort REF Dependent;
+};
+
+// ===================================================================
+//      Linux_FCSCSIProtocolEndpoint
+// ===================================================================
+
+[ Provider("cmpi:cmpiSMIS_HBA_HDR_Provider"),
+  Description ("A class derived from ProtocolEndpoint. This class "
+  "represents instances of available SCSI protocols over FC port ." )
+]
+class Linux_FCSCSIProtocolEndpoint : CIM_SCSIProtocolEndpoint
+{ };
+
+
+// ===================================================================
+// 	Linux_FCDeviceSAPImplementation
+// ===================================================================
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ] 
+class Linux_FCDeviceSAPImplementation : CIM_DeviceSAPImplementation
+{ 
+   [ Override ( "Antecedent" ), 
+     Description (
+          "The Fiber Channel Port LogicalDevice.")]
+   Linux_FCPort REF Antecedent;
+
+   [ Override ( "Dependent" ), 
+     Description (
+          "The SCSI Protocol Endpoint implemented using the FC Port.")]
+   Linux_FCSCSIProtocolEndpoint REF Dependent;
+};
+
+
+// ===================================================================
+// 	Linux_FCElementSoftwareIdentity
+// ===================================================================
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ] 
+class Linux_FCElementSoftwareIdentity : CIM_ElementSoftwareIdentity
+{ 
+   [ Override ( "Antecedent" ), 
+     Description (
+          "The FC Port Controller's Software Asset, including FIRMWARE and DRIVER.")]
+   Linux_FCSoftwareIdentity REF Antecedent;
+
+   [ Override ( "Dependent" ), 
+     Description (
+          "The FC Port Controller that requires or uses the software.")]
+   Linux_FCPortController REF Dependent;
+};
+
+
+
+// ===================================================================
+// 	Linux_FCInstalledSoftwareIdentity
+// ===================================================================
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ] 
+class Linux_FCInstalledSoftwareIdentity : CIM_InstalledSoftwareIdentity
+{ 
+   [ Key, 
+     Description (
+          "The system on which the FC software is installed.")]
+   Linux_ComputerSystem REF System;
+
+   [ Key, 
+     Description (
+          "The FC SoftwareIdentity Driver that is installed.")]
+   Linux_FCSoftwareIdentity_Driver REF InstalledSoftware;
+};
+
+// ===================================================================
+//      Linux_FCPortStatistics
+// ===================================================================
+
+[ Provider("cmpi:cmpiSMIS_HBA_HDR_Provider"),
+  Description ("A class derived from CIM_FCPortStatistics. It provides "
+  "statistics for the Fibre Channel Port." )
+]
+class Linux_FCPortStatistics : CIM_FCPortStatistics
+{ };
+
+// ===================================================================
+// 	Linux_FCElementStatisticalData
+// ===================================================================
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ] 
+class Linux_FCElementStatisticalData : CIM_ElementStatisticalData
+{ 
+  [ Override ("ManagedElement"),
+    Key, Min ( 1 ), Max ( 1 ), 
+    Description ("The Fiber Channel Port for which statistical or metric data is "
+          "defined.")
+  ]
+  Linux_FCPort REF ManagedElement;
+
+  [ Override ("Stats"),
+    Key, Description ("The statistic information/object.")
+  ]
+  Linux_FCPortStatistics REF Stats;
+};
+
+// ===================================================================
+//      Linux_FCHostedAccessPoint
+// ===================================================================
+
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ]
+class Linux_FCHostedAccessPoint : CIM_HostedAccessPoint
+{
+  [ Override ("Antecedent"),
+    Description ("The Computer System Container.")
+  ]
+  Linux_ComputerSystem REF Antecedent;
+
+  [ Override ("Dependent"),
+    Description ("The FC SCSI, available to the CS.")
+  ]
+  Linux_FCSCSIProtocolEndpoint REF Dependent;
+};
+
+// ===================================================================
+//  Linux_FCSCSIInitiatorTargetLogicalUnitPath
+// ===================================================================
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ]
+class Linux_FCSCSIInitiatorTargetLogicalUnitPath : CIM_SCSIInitiatorTargetLogicalUnitPath
+{
+  [ Override ("Initiator"),
+    Key, Min ( 1 ), Max ( 1 )
+  ]
+  Linux_FCSCSIProtocolEndpoint REF Initiator;
+
+  [ Override ("Target"),
+    Key, Min ( 1 ), Max ( 1 )
+  ]
+  Linux_FCSCSIProtocolEndpoint REF Target;
+
+  [ Override ("LogicalUnit"),
+    Key, Min ( 1 ), Max ( 1 )
+  ]
+  CIM_LogicalDevice REF LogicalUnit;
+};
+
+// ===================================================================
+//      Linux_FCProduct
+// ===================================================================
+
+[ Provider("cmpi:cmpiSMIS_HBA_HDR_Provider"),
+  Description ("This class represents instances "
+  "of available Fibre Channel Products." )
+]
+class Linux_FCProduct : CIM_Product
+{ };
+
+// ===================================================================
+//      Linux_FCProductPhysicalComponent
+// ===================================================================
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ]
+class Linux_FCProductPhysicalComponent : CIM_ProductPhysicalComponent
+{
+   [ Override ( "GroupComponent" ),
+     Max ( 1 ),
+     Description (
+          "The FC Product.")]
+   Linux_FCProduct REF GroupComponent;
+
+   [ Override ( "PartComponent" ),
+     Description (
+          "The FC Card in the FC Product.")]
+   Linux_FCCard REF PartComponent;
+};
+
+// ===================================================================
+//      Linux_FCRealizes
+// ===================================================================
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ]
+class Linux_FCRealizes : CIM_Realizes
+{
+   [ Override ( "Antecedent" ),
+     Description (
+          "The FC Card that implements the FC Port Controller.")]
+   Linux_FCCard REF Antecedent;
+
+   [ Override ( "Dependent" ),
+     Description (
+          "The FC Port Controller LogicalDevice.")]
+   Linux_FCPortController REF Dependent;
+};
+
+// ===================================================================
+//    Linux_FCSystemDevice
+// ===================================================================
+[ Association,
+  Provider("cmpi:cmpiSMIS_HBA_HDR_Provider") ]
+class Linux_FCSystemDevice : CIM_SystemDevice
+{
+   [ Override ( "GroupComponent" ),
+     Min ( 1 ), Max ( 1 ),
+     Description (
+          "The parent system where the FC device installed.")]
+   Linux_ComputerSystem REF GroupComponent;
+
+   [ Override ( "PartComponent" ),
+     Description (
+          "The FC Port Controller that is a component of a System.")]
+   Linux_FCPortController REF PartComponent;
+};
+// ===================================================================
+//      Linux_FCTapeDrive
+// ===================================================================
+[ Provider("cmpi:cmpiLinux_FCTapeDriverProvider"),
+  Description ("A class representing FCTapeDriver." )
+]
+class Linux_FCTapeDrive : CIM_TapeDrive
+{
+};
+
