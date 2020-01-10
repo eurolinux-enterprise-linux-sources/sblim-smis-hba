@@ -1,15 +1,16 @@
-%define provider_dir %{_libdir}/cmpi/
+%global tog_pegasus_version 2:2.5.1
+%global provider_dir %{_libdir}/cmpi/
 
 Name:           sblim-smis-hba
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        4%{?dist}
 Summary:        SBLIM SMIS HBA HDR Providers
 
-Group:          Systems Management/Base
-License:        EPL and SNIA
+Group:          Applications/System
+License:        EPL
 URL:            http://sblim.wiki.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
-BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+BuildRoot:      %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 # Patch4: upstream tarball doesn't contain testsuite but default Makefile is going to build it
 Patch0:         sblim-smis-hba-1.0.0-no-testsuite.patch
@@ -56,8 +57,9 @@ autoreconf
 rm -f ltmain.sh
 libtoolize --force
 
-
 %build
+export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
+export CXXFLAGS="$CFLAGS"
 %configure \
    TESTSUITEDIR=%{_datadir}/sblim-testsuite \
    CIMSERVER=pegasus \
@@ -89,12 +91,6 @@ rm -rf $RPM_BUILD_ROOT
 /%{_libdir}/cmpi/libcmpiLinux_Common.so*
 /%{_libdir}/cmpi/libcmpiLinux_ECTP_Provider.so*
 /%{_libdir}/cmpi/libcmpiSMIS_HBA_HDR_Provider.so*
-
-#%files devel
-#%defattr(-,root,root,-)
-#%{_includedir}/*
-#%{_libdir}/*.so
-
 
 %define HBA_SCHEMA %{_datadir}/%{name}/Linux_SMIS_HBA_HDR.mof %{_datadir}/%{name}/Linux_SMIS_ECTP.mof
 %define HBA_REGISTRATION %{_datadir}/%{name}/Linux_SMIS_HBA_HDR.reg %{_datadir}/%{name}/Linux_SMIS_ECTP.reg
@@ -129,6 +125,16 @@ fi
 
 
 %changelog
+* Tue Jun 28 2011 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.0.0-4
+- Rebuild
+
+* Tue Jun 28 2011 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.0.0-3
+- Build with -fno-strict-aliasing
+
+* Mon Jun 06 2011 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.0.0-2
+- Fix license, dependency and minor spec file issues
+  Resolves: #620422
+
 * Thu Jul 15 2010 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.0.0-1
 - Initial support
 
