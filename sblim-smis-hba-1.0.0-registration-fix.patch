@@ -1,0 +1,60 @@
+diff -up sblim-smis-hba-1.0.0/mof/Linux_SMIS_ECTP.reg.orig sblim-smis-hba-1.0.0/mof/Linux_SMIS_ECTP.reg
+--- sblim-smis-hba-1.0.0/mof/Linux_SMIS_ECTP.reg.orig	2009-09-01 15:22:40.000000000 +0200
++++ sblim-smis-hba-1.0.0/mof/Linux_SMIS_ECTP.reg	2011-11-29 13:27:48.240055977 +0100
+@@ -16,5 +16,5 @@
+ # Description: 
+ #
+ #Classname                      Namespace        ProviderName                            ProviderModule           ProviderTypes  ...
+-Linux_ElementConformsToProfile  root/cimv2       Linux_ElementConformsToProfileProvider  cmpiLinux_ECTP_Provider  instance       association
+-Linux_ElementConformsToProfile  root/interop  Linux_ElementConformsToProfileProvider  cmpiLinux_ECTP_Provider  instance       association
++Linux_ElementConformsToProfile root/cimv2 Linux_ElementConformsToProfileProvider cmpiLinux_ECTP_Provider instance association
++Linux_ElementConformsToProfile root/interop Linux_ElementConformsToProfileProvider cmpiLinux_ECTP_Provider instance association
+diff -up sblim-smis-hba-1.0.0/mof/Linux_SMIS_HBA_HDR.reg.orig sblim-smis-hba-1.0.0/mof/Linux_SMIS_HBA_HDR.reg
+--- sblim-smis-hba-1.0.0/mof/Linux_SMIS_HBA_HDR.reg.orig	2009-09-01 15:22:41.000000000 +0200
++++ sblim-smis-hba-1.0.0/mof/Linux_SMIS_HBA_HDR.reg	2011-11-29 14:21:28.111830299 +0100
+@@ -16,24 +16,24 @@
+ # Description: 
+ #
+ #Classname                                  Namespace   ProviderName                                       ProviderModule                                           ProviderTypes  ...
+-Linux_FCPort                                root/cimv2  SMIS_FCPortProvider                                cmpiSMIS_HBA_HDR_Provider instance       method
+-Linux_FCCard                                root/cimv2  SMIS_FCCardProvider                                cmpiSMIS_HBA_HDR_Provider  instance       method
+-Linux_FCLogicalDisk                         root/cimv2  SMIS_FCLogicalDiskProvider                         cmpiSMIS_HBA_HDR_Provider  instance       method
+-Linux_FCSoftwareIdentity                    root/cimv2  SMIS_FCSoftwareIdentityProvider                    cmpiSMIS_HBA_HDR_Provider  instance       method
+-Linux_FCSoftwareIdentity_Driver             root/cimv2  SMIS_FCSoftwareIdentity_DriverProvider             cmpiSMIS_HBA_HDR_Provider  instance       method
+-Linux_FCSoftwareIdentity_Firmware           root/cimv2  SMIS_FCSoftwareIdentity_FirmwareProvider           cmpiSMIS_HBA_HDR_Provider instance       method
+-Linux_FCSystemDevice_LogicalDevice          root/cimv2  SMIS_FCSystemDevice_LogicalDeviceProvider          cmpiSMIS_HBA_HDR_Provider instance       association
+-Linux_FCPortController                      root/cimv2  SMIS_FCPortControllerProvider                      cmpiSMIS_HBA_HDR_Provider instance       method
+-Linux_FCControlledBy                        root/cimv2  SMIS_FCControlledByProvider                        cmpiSMIS_HBA_HDR_Provider instance       association
+-Linux_FCSCSIProtocolEndpoint                root/cimv2  SMIS_FCSCSIProtocolEndpointProvider                cmpiSMIS_HBA_HDR_Provider instance       method
+-Linux_FCDeviceSAPImplementation             root/cimv2  SMIS_FCDeviceSAPImplementationProvider             cmpiSMIS_HBA_HDR_Provider instance       association
+-Linux_FCElementSoftwareIdentity             root/cimv2  SMIS_FCElementSoftwareIdentityProvider             cmpiSMIS_HBA_HDR_Provider instance       association
+-Linux_FCInstalledSoftwareIdentity           root/cimv2  SMIS_FCInstalledSoftwareIdentityProvider           cmpiSMIS_HBA_HDR_Provider instance       association
+-Linux_FCPortStatistics                      root/cimv2  SMIS_FCPortStatisticsProvider                      cmpiSMIS_HBA_HDR_Provider instance       method
+-Linux_FCElementStatisticalData              root/cimv2  SMIS_FCElementStatisticalDataProvider              cmpiSMIS_HBA_HDR_Provider instance       association
+-Linux_FCHostedAccessPoint                   root/cimv2  SMIS_FCHostedAccessPointProvider                   cmpiSMIS_HBA_HDR_Provider instance       association
+-Linux_FCSCSIInitiatorTargetLogicalUnitPath  root/cimv2  SMIS_FCSCSIInitiatorTargetLogicalUnitPathProvider  cmpiSMIS_HBA_HDR_Provider instance       association
+-Linux_FCProduct                             root/cimv2  SMIS_FCProductProvider                             cmpiSMIS_HBA_HDR_Provider  instance
+-Linux_FCProductPhysicalComponent            root/cimv2  SMIS_FCProductPhysicalComponentProvider            cmpiSMIS_HBA_HDR_Provider instance       association
+-Linux_FCRealizes                            root/cimv2  SMIS_FCRealizesProvider                            cmpiSMIS_HBA_HDR_Provider instance       association
+-Linux_FCSystemDevice                        root/cimv2  SMIS_FCSystemDeviceProvider                        cmpiSMIS_HBA_HDR_Provider instance       association
++Linux_FCPort root/cimv2 SMIS_FCPortProvider cmpiSMIS_HBA_HDR_Provider instance method
++Linux_FCCard root/cimv2 SMIS_FCCardProvider cmpiSMIS_HBA_HDR_Provider instance method
++Linux_FCLogicalDisk root/cimv2 SMIS_FCLogicalDiskProvider cmpiSMIS_HBA_HDR_Provider instance method
++Linux_FCSoftwareIdentity root/cimv2 SMIS_FCSoftwareIdentityProvider cmpiSMIS_HBA_HDR_Provider instance method
++Linux_FCSoftwareIdentity_Driver root/cimv2 SMIS_FCSoftwareIdentity_DriverProvider cmpiSMIS_HBA_HDR_Provider instance method
++Linux_FCSoftwareIdentity_Firmware root/cimv2 SMIS_FCSoftwareIdentity_FirmwareProvider cmpiSMIS_HBA_HDR_Provider instance method
++Linux_FCSystemDevice_LogicalDevice root/cimv2 SMIS_FCSystemDevice_LogicalDeviceProvider cmpiSMIS_HBA_HDR_Provider instance association
++Linux_FCPortController root/cimv2 SMIS_FCPortControllerProvider cmpiSMIS_HBA_HDR_Provider instance method
++Linux_FCControlledBy root/cimv2 SMIS_FCControlledByProvider cmpiSMIS_HBA_HDR_Provider instance association
++Linux_FCSCSIProtocolEndpoint root/cimv2 SMIS_FCSCSIProtocolEndpointProvider cmpiSMIS_HBA_HDR_Provider instance method
++Linux_FCDeviceSAPImplementation root/cimv2 SMIS_FCDeviceSAPImplementationProvider cmpiSMIS_HBA_HDR_Provider instance association
++Linux_FCElementSoftwareIdentity root/cimv2 SMIS_FCElementSoftwareIdentityProvider cmpiSMIS_HBA_HDR_Provider instance association
++Linux_FCInstalledSoftwareIdentity root/cimv2 SMIS_FCInstalledSoftwareIdentityProvider cmpiSMIS_HBA_HDR_Provider instance association
++Linux_FCPortStatistics root/cimv2 SMIS_FCPortStatisticsProvider cmpiSMIS_HBA_HDR_Provider instance method
++Linux_FCElementStatisticalData root/cimv2 SMIS_FCElementStatisticalDataProvider cmpiSMIS_HBA_HDR_Provider instance association
++Linux_FCHostedAccessPoint root/cimv2 SMIS_FCHostedAccessPointProvider cmpiSMIS_HBA_HDR_Provider instance association
++Linux_FCSCSIInitiatorTargetLogicalUnitPath root/cimv2 SMIS_FCSCSIInitiatorTargetLogicalUnitPathProvider cmpiSMIS_HBA_HDR_Provider instance association
++Linux_FCProduct root/cimv2 SMIS_FCProductProvider cmpiSMIS_HBA_HDR_Provider instance
++Linux_FCProductPhysicalComponent root/cimv2 SMIS_FCProductPhysicalComponentProvider cmpiSMIS_HBA_HDR_Provider instance association
++Linux_FCRealizes root/cimv2 SMIS_FCRealizesProvider cmpiSMIS_HBA_HDR_Provider instance association
++Linux_FCSystemDevice root/cimv2 SMIS_FCSystemDeviceProvider cmpiSMIS_HBA_HDR_Provider instance association

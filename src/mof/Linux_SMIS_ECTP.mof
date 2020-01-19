@@ -1,0 +1,42 @@
+/*
+ * $Id: Linux_SMIS_ECTP.mof,v 1.1.1.1 2009/05/12 21:46:32 nsharoff Exp $
+ *
+ * (C) Copyright IBM Corp. 2006, 2009
+ *
+ * THIS FILE IS PROVIDED UNDER THE TERMS OF THE ECLIPSE PUBLIC LICENSE
+ * ("AGREEMENT"). ANY USE, REPRODUCTION OR DISTRIBUTION OF THIS FILE
+ * CONSTITUTES RECIPIENTS ACCEPTANCE OF THE AGREEMENT.
+ *
+ * You can obtain a current copy of the Eclipse Public License from
+ * http://www.opensource.org/licenses/eclipse-1.0.php
+ *
+ * Author: IBM
+ *
+ * Contributors: IBM 
+ *
+ * Description:
+ *	ECTP MOF file
+*/
+
+#pragma locale ("en_US")
+#pragma namespace ("root/cimv2")
+
+// ===================================================================
+//      Linux_ElementConformsToProfile
+// ===================================================================
+
+[ Association,
+  Provider("cmpi:cmpiLinux_ElementConformsToProfileProvider") ]
+class Linux_ElementConformsToProfile : CIM_ElementConformsToProfile
+{
+  [ Override ("ConformantStandard"),
+    Description ("The RegisteredProfile to which the ManagedElement conforms.")
+  ]
+  CIM_RegisteredProfile REF ConformantStandard;
+
+  [ Override ("ManagedElement"),
+    Description ("The ManagedElement that conforms to the RegisteredProfile.")
+  ]
+  CIM_ManagedElement REF ManagedElement;
+};
+
